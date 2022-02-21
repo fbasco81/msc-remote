@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./App.css";
-import { Fab, Grid, Stack } from "@mui/material";
+import { Grid, Stack } from "@mui/material";
 import { CheckButtonProps } from "./components/ButtonProps";
 import CheckOut from "./components/checkout/checkout";
 import CheckIn from "./components/checkin/checkin";

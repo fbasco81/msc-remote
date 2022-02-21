@@ -1,0 +1,1 @@
+export const endpoint = "https://prod-114.westus.logic.azure.com/workflows/c9cf35a90e2a48a4bb324e98bd18ee7c/triggers/manual/paths/invoke/checkin?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=3k8WTGWzlJQQITKE8F83DlMXugpGiiumfbxIlQkgGK0";
