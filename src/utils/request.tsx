@@ -1,7 +1,7 @@
-import { CheckButtonProps } from "../components/ButtonProps";
+import { ICheckButtonProps } from "../types/ICheckButtonProps";
 
 export function buildRequestOptions(
-  props: CheckButtonProps,
+  props: ICheckButtonProps,
   time: string
 ) {
   const requestOptions = {

@@ -1,4 +1,4 @@
-export interface CheckButtonProps {
+export interface ICheckButtonProps {
     username: string;
     to: string;
     cc: string;

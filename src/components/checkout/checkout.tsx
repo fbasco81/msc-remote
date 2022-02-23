@@ -1,12 +1,12 @@
 import React from 'react';
 import './checkout.css';
 import { Fab } from '@mui/material';
-import { CheckButtonProps } from '../ButtonProps';
 import { getCurrentCetTime } from '../../utils/time';
 import { endpoint } from '../../utils/url';
 import { buildRequestOptions } from '../../utils/request';
-
-function CheckOut(props: CheckButtonProps) {
+import { ICheckButtonProps } from '../../types/ICheckButtonProps';
+import LogoutIcon from '@mui/icons-material/Logout';
+function CheckOut(props: ICheckButtonProps) {
 
   const checkOut = async() => {
     const time = getCurrentCetTime();
@@ -23,18 +23,11 @@ function CheckOut(props: CheckButtonProps) {
   }
 
   return (
-      <Fab variant="extended" 
-      sx={{
-        bgcolor: 'red',
-        '&:hover': {
-          background: "#FF1111",
-        },
-        boxShadow: 1,
-        borderRadius: 10,
-        p: 20,
-        minWidth: 300,
-      }}
-      onClick={checkOut}>Check out</Fab>
+    <Fab variant="extended" onClick={checkOut}>
+          <LogoutIcon />
+          End your day
+        </Fab>
+      
     );
 }
 

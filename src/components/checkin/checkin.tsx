@@ -1,12 +1,13 @@
 import React from 'react';
 import './checkin.css';
 import { Fab } from '@mui/material';
-import { CheckButtonProps } from '../ButtonProps';
 import { getCurrentCetTime } from '../../utils/time';
 import { endpoint } from '../../utils/url';
 import { buildRequestOptions } from '../../utils/request';
+import { ICheckButtonProps } from '../../types/ICheckButtonProps';
+import LoginIcon from '@mui/icons-material/Login';
 
-function CheckIn(props: CheckButtonProps) {
+function CheckIn(props: ICheckButtonProps) {
 
   const checkIn = async() => {
     const time = getCurrentCetTime();
@@ -23,18 +24,11 @@ function CheckIn(props: CheckButtonProps) {
   }
 
   return (
-      <Fab variant="extended"
-          sx={{
-            bgcolor: 'green',
-            '&:hover': {
-              background: "#00FF11",
-            },
-            boxShadow: 1,
-            borderRadius: 10,
-            p: 20,
-            minWidth: 300,
-          }}
-          onClick={checkIn}>Check in</Fab>
+    <Fab variant="extended" onClick={checkIn}>
+          <LoginIcon />
+          Begin your day
+        </Fab>
+    
     );
 }
 
