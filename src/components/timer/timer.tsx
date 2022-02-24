@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import './timer.css';
-import { Fab } from '@mui/material';
 import { getCurrentCetTime } from '../../utils/time';
 import { ITimerProps } from '../../types/ITimerProps';
 import HistoryToggleOffIcon from '@mui/icons-material/HistoryToggleOff';
