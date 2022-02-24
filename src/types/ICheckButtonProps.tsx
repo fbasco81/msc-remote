@@ -1,9 +1,11 @@
+import { Moment } from "moment-timezone";
+
 export interface ICheckButtonProps {
     username: string;
     to: string;
     cc: string;
     fullName: string;
-    onSuccess(): void;
+    onSuccess(time: Moment): void;
     onFailure(): void;
     type: string;
 }

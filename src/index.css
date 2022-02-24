@@ -1,13 +1,46 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import url('https://fonts.googleapis.com/css2?family=Kufam&display=swap');
+
+body{
+  font-family: 'Kufam', sans-serif;
+  background-color: #212529;
+  
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.header{
+  height: 20vh;
+  font-size: 36px;
+  color: #F8F9FA;
+}
+
+.timer{
+  font-size: 36px;
+  color: #F8F9FA;
+}
+
+.checkIn{
+  color: #F8F9FA;
+  font-size: 28px;
+}
+
+.checkOut{
+  color: #F8F9FA;
+  font-size: 28px;
+}
+
+.timer > .MuiSvgIcon-root{
+  width: 5em;
+  height: 5em;
+}
+
+button.checkButton{
+  font-size: 24px;
+
+}
+
+button.registrationButton{
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  background-color: #DEE2E6;
+  color: #212529; 
 }

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./App.css";
-import { Fab, Grid, Stack } from "@mui/material";
+import { Box, Fab, Grid } from "@mui/material";
 import CheckOut from "./components/checkout/checkout";
 import CheckIn from "./components/checkin/checkin";
 import { ICheckButtonProps } from "./types/ICheckButtonProps";
@@ -8,106 +8,101 @@ import Registration from "./components/registration/registration";
 import { IRegistrationProps } from "./types/IRegistrationProps";
 import { IUser } from "./types/IUser";
 import { INotify } from "./types/INotify";
-import EditIcon from '@mui/icons-material/Edit';
-import LoginIcon from '@mui/icons-material/Login';
+import EditIcon from "@mui/icons-material/Edit";
 import Timer from "./components/timer/timer";
 import { ITimerProps } from "./types/ITimerProps";
+import { getCheckInCheckoutData, getUserData, getNotifyData, setCheckInCheckOutData } from "./utils/storage";
+
 function App() {
+  const isDataMissing =
+    !localStorage.getItem("user") || !localStorage.getItem("user");
 
-  const isDataMissing = !localStorage.getItem('user') || !localStorage.getItem('user');
+  let checkInCheckout = getCheckInCheckoutData();
+  const dateFormat = "dd/MM/yyyy HH:mm";
+  const [checkInTime, setCheckInTime] = useState(checkInCheckout.start);
+  const [checkOutTime, setCheckOutTime] = useState(checkInCheckout.end);
+  const [isRegistrationVisible, setIsRegistrationVisible] =
+    useState(isDataMissing);
 
-  const [isCheckInVisible, setIsCheckInVisible] = useState(true);
-  const [isCheckOutVisible, setIsCheckOutVisible] = useState(true);
-  const [isRegistrationVisible, setIsRegistrationVisible] = useState(isDataMissing);
-
-  
   const registrationProps: IRegistrationProps = {
-    user: {
-      department: "",
-      email: "",
-      name: "",
-      surname: "" 
-    },
-    notify: {
-      bcc: "",
-      cc: "",
-      to: ""
-    },
+    user: getUserData(),
+    notify: getNotifyData(),
     onConfirm: (user: IUser, notify: INotify) => {
-      localStorage.setItem('user', JSON.stringify(user));
-      localStorage.setItem('notify', JSON.stringify(notify));
+      localStorage.setItem("user", JSON.stringify(user));
+      localStorage.setItem("notify", JSON.stringify(notify));
       setIsRegistrationVisible(false);
-    }
-  }
+    },
+  };
 
-  if (localStorage.getItem('user')){
-    registrationProps.user = JSON.parse(localStorage.getItem('user') as string);
-  }
 
-  if (localStorage.getItem('notify')){
-    registrationProps.notify = JSON.parse(localStorage.getItem('notify') as string);
-  }
 
   const checkInButtonProps: ICheckButtonProps = {
-    username: "francesco.basco@msc.com",
-    to: "fbasco81@gmail.com",
-    cc: "francesco.basco@msc.com",
-    fullName: "Francesco Basco",
-    onSuccess: () => {
-      setIsCheckInVisible(false);
+    username: registrationProps.user.email,
+    to: registrationProps.notify.to,
+    cc: registrationProps.notify.cc,
+    fullName: registrationProps.user.name + ' ' + registrationProps.user.surname,
+    onSuccess: (time) => {
+      setCheckInTime(time.format(dateFormat));
+      setCheckInCheckOutData({...checkInCheckout, ...{start: time.format(dateFormat)}});
     },
     onFailure: () => {
       alert("error");
     },
-    type: "[IN]"
+    type: "[IN]",
   };
 
   const timerProps: ITimerProps = {};
   const checkOutButtonProps: ICheckButtonProps = {
-    username: "francesco.basco@msc.com",
-    to: "fbasco81@gmail.com",
-    cc: "francesco.basco@msc.com",
-    fullName: "Francesco Basco",
-    onSuccess: () => {
-      setIsCheckOutVisible(false);
+    username: registrationProps.user.email,
+    to: registrationProps.notify.to,
+    cc: registrationProps.notify.cc,
+    fullName: registrationProps.user.name + ' ' + registrationProps.user.surname,
+    onSuccess: (time) => {
+      setCheckOutTime(time.format(dateFormat));
+      setCheckInCheckOutData({...checkInCheckout, ...{end: time.format(dateFormat)}});
     },
     onFailure: () => {
       alert("error");
     },
-    type: "[OUT]"
+    type: "[OUT]",
+  };
 
-  }; 
-
-  
   return (
-    <div className="App">
-      <Grid
-        container
-        direction="column"
-        justifyContent="center"
-        alignItems="center"
-      >
-        <Grid item>
-          Header
+    <Box sx={{ flexGrow: 1 }}>
+      <Grid container spacing={2}>
+        <Grid item xs={12} sx={{textAlign: "center"}} className="header">
+        Be ready to live an unforgettable experience
         </Grid>
-        <Stack
-          direction="row"
-          justifyContent="center"
-          alignItems="center"
-          spacing={2}
-        >
-          { isCheckInVisible ? <CheckIn {...checkInButtonProps}></CheckIn> : <span>Check in done</span>}
-           <Timer {...timerProps}></Timer>
-          { isCheckOutVisible ? <CheckOut {...checkOutButtonProps}></CheckOut> : <span>Check out done</span>}
-        </Stack>
-        { isRegistrationVisible ? <Registration {...registrationProps}></Registration> : <></>}
-
-        <Fab color="secondary" aria-label="edit" onClick={() => setIsRegistrationVisible(true)}>
-          <EditIcon />
-        </Fab>
+        <Grid item xs={4} sx={{textAlign: "center"}} className="checkIn">
+          Last check in done at {checkInTime}<br/>
+          <CheckIn {...checkInButtonProps}></CheckIn>
+        </Grid>
+        <Grid item xs={4} sx={{textAlign: "center"}}>
+          <Timer {...timerProps}></Timer>
+        </Grid>
+        <Grid item xs={4} sx={{textAlign: "center"}} className="checkOut">
+          Last check out done at {checkOutTime}<br/>
+          <CheckOut {...checkOutButtonProps}></CheckOut>
+        </Grid>
       </Grid>
-    </div>
+      <Fab
+        color="secondary"
+        aria-label="edit"
+        className="registrationButton"
+        onClick={() => setIsRegistrationVisible(true)}
+      >
+        <EditIcon />
+      </Fab>
+
+      {isRegistrationVisible ? (
+        <Registration {...registrationProps}></Registration>
+      ) : (
+        <></>
+      )}
+    </Box>
   );
 }
 
 export default App;
+
+

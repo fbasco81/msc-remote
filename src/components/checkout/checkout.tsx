@@ -15,7 +15,7 @@ function CheckOut(props: ICheckButtonProps) {
   
     fetch(endpoint, requestOptions)
       .then(response => {
-        props.onSuccess();
+        props.onSuccess(time);
       }).catch(err => {
         props.onFailure();
       })
@@ -23,9 +23,9 @@ function CheckOut(props: ICheckButtonProps) {
   }
 
   return (
-    <Fab variant="extended" onClick={checkOut}>
+    <Fab variant="extended" onClick={checkOut} className="checkButton">
           <LogoutIcon />
-          End your day
+          Check-out
         </Fab>
       
     );

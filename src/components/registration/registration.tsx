@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './registration.css';
 import { IRegistrationProps } from '../../types/IRegistrationProps';
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Modal, TextField, Typography } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from '@mui/material';
 import { IUser } from '../../types/IUser';
 import { INotify } from '../../types/INotify';
 

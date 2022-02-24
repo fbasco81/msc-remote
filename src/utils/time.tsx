@@ -1,5 +1,5 @@
-import moment from "moment-timezone";
+import moment, { Moment } from "moment-timezone";
 
-export function getCurrentCetTime(): string {
-    return moment().tz("Europe/Rome").format("HH:mm");
+export function getCurrentCetTime(): Moment {
+    return moment().tz("Europe/Rome");
 } 

@@ -1,8 +1,9 @@
+import { Moment } from "moment-timezone";
 import { ICheckButtonProps } from "../types/ICheckButtonProps";
 
 export function buildRequestOptions(
   props: ICheckButtonProps,
-  time: string
+  time: Moment
 ) {
   const requestOptions = {
     method: "POST",
@@ -13,7 +14,7 @@ export function buildRequestOptions(
       cc: props.cc,
       swType: props.type,
       name: props.fullName,
-      time: time,
+      time: time.format("HH:mm"),
     }),
   };
   return requestOptions;
