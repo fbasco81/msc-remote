@@ -7,6 +7,16 @@ function Timer(props: ITimerProps) {
 
   const [currentTime, setCurrentTime] = useState(getCurrentCetTime().format("HH:mm"));
 
+  
+  const duration = moment.duration(
+    (checkOutMoment.isValid() ? checkOutMoment : getCurrentCetTime()).diff(
+      checkInMoment
+    )
+  );
+  // elapsedHours: duration.hours().toString(),
+  // elapsedMinutes: duration.minutes().toString(),
+
+
   setInterval(() => {
     const time = getCurrentCetTime();
     setCurrentTime(time.format("HH:mm"));
@@ -18,7 +28,8 @@ function Timer(props: ITimerProps) {
     </HistoryToggleOffIcon>
     <br />
     {currentTime}
-    
+    <br />
+    (elapsed: {props.elapsedHours} hours and {props.elapsedMinutes} minutes)
     </div>);
 }
 
